@@ -26,9 +26,9 @@
 <body style="margin : 0px; overflow: hidden;">
     <a-scene embedded arjs='sourceType: webcam;'>
       <a-assets>
-        <video id="thelionking" autoplay loop="false" src="https://github.com/ancyphilip/mywebpage/blob/master/thelionking.mov"></video>
+        <video id="thelionking" autoplay loop="false" src="./thelionking.mov"></video>
       </a-assets>
-      <a-marker preset='custom' type='pattern' url='https://github.com/ancyphilip/mywebpage/blob/master/pattern-MovieIconNew.patt' video-vidhandler> 
+      <a-marker preset='custom' type='pattern' url='./pattern-MovieIconNew.patt' video-vidhandler> 
         <a-plane scale = "2 2" position='0 0.1 0' rotation="-90 0 0" material='transparent:true;src:#thelionking' controls></a-plane>
       </a-marker>
       <a-entity camera></a-entity>
