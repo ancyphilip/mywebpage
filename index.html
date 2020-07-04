@@ -1,41 +1,38 @@
 <html>
-<head>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>AR Demo</title>
-    
-    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.0.8/aframe/build/aframe-ar.js"></script>
-    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
-  </head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script>
+      AFRAME.registerComponent('video-vidhandler', {
+                init: function() {
+		    console.log('video init entered');
+                    this.toggle = false;
+                    this.vid = document.querySelector("#thelionking");
+                    this.vid.pause();
+                },
+                tick: function() {
+                    if (this.el.object3D.visible == true) {
+                        if (!this.toggle) {
+                            this.toggle = true;
+                            this.vid.play();
+                        }
+                    } else {
+                        this.toggle = false;
+                        this.vid.pause();
+                    }
+                }
+            });
+    </script>
       
 <body style="margin : 0px; overflow: hidden;">
-    
-    <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
+    <a-scene embedded arjs='sourceType: webcam;'>
       <a-assets>
-        <video id="vid" crossOrigin="anonymous" type="video/mp4" src="./The Lion King Official Trailer.mp4" autoplay loop="true" playsinline webkit-playsinline controls />
+	<video id="thelionking" autoplay loop="false" src="./The Lion King Official Trailer.mp4"></video>
       </a-assets>
-      
-      <a-marker-camera preset="custom" type="pattern" url="./pattern-MovieIconNew.patt">
-        <a-video src="#vid" position="0 0.5 0" rotation="270 0 0" play="true"></a-video>
-      </a-marker-camera>
+      <a-marker preset='custom' type='pattern' url='./pattern-MovieIconNew.patt' video-vidhandler> 
+        <a-plane scale = "4 4" position='0 0.1 0' rotation="-90 0 0" material='transparent:true;src:#thelionking' controls></a-plane>
+      </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
-    
-    <script>
-      window.addEventListener('click', function () {
-        var video = document.querySelector('#vid');
-        if (video.paused == true) {
-          video.play();
-          } else {
-          video.pause();
-        }
-      }, false);
-     
-    </script>
-    
-    </body>
+  </body>
   
 </html>
